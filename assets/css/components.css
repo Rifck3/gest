@@ -1,0 +1,78 @@
+/* Dashboard Cards */
+.dashboard-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card .card-body {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.dashboard-card .text-xs {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.dashboard-card .h5 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dashboard-card .icon-badge {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-card .icon-badge i {
+    font-size: 1.8rem;
+    opacity: 0.8;
+}
+
+.dashboard-card.primary .icon-badge {
+    background: rgba(78, 115, 223, 0.1);
+}
+
+.dashboard-card.success .icon-badge {
+    background: rgba(28, 200, 138, 0.1);
+}
+
+.dashboard-card.danger .icon-badge {
+    background: rgba(231, 74, 59, 0.1);
+}
+
+.dashboard-card.warning .icon-badge {
+    background: rgba(246, 194, 62, 0.1);
+}
+
+.dashboard-card .card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-card .card-footer a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dashboard-card .card-footer a:hover {
+    text-decoration: underline;
+}

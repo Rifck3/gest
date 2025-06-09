@@ -1,0 +1,236 @@
+/* Styles pour les tableaux */
+.table-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.table-header {
+    background: #f8f9fc;
+    border-bottom: 2px solid #e3e6f0;
+    padding: 1rem;
+}
+
+.table-title {
+    color: #4e73df;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.table th {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem;
+    background-color: #f8f9fc;
+    border-bottom: 2px solid #e3e6f0;
+}
+
+.table td {
+    padding: 0.5rem;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+.table .badge {
+    padding: 0.25em 0.6em;
+    font-size: 0.75rem;
+}
+
+.table .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    margin: 0 0.2rem;
+}
+
+.table .text-end {
+    text-align: right;
+}
+
+.table .text-center {
+    text-align: center;
+}
+
+/* Styles pour les statuts */
+.status-active {
+    color: #1cc88a;
+}
+
+.status-inactive {
+    color: #e74a3b;
+}
+
+.status-warning {
+    color: #f6c23e;
+}
+
+/* Styles pour la recherche */
+.table-search {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.table-search input {
+    padding-left: 2.5rem;
+    border-radius: 4px;
+    border: 1px solid #d1d3e2;
+}
+
+.table-search i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6e707e;
+}
+
+/* Styles pour la pagination */
+.table-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+}
+
+.table-info {
+    color: #6e707e;
+    font-size: 0.875rem;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.pagination .page-link {
+    color: #4e73df;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e3e6f0;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+/* Styles pour les tableaux responsifs */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .table-header {
+        flex-direction: column;
+    }
+
+    .table-search {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .table-pagination {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.4rem;
+    }
+
+    .btn-group .btn {
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* Styles pour les boutons d'action */
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Styles pour les inputs de recherche */
+.input-group {
+    font-size: 0.85rem;
+}
+
+.input-group .form-control {
+    font-size: 0.85rem;
+    padding: 0.375rem 0.75rem;
+}
+
+/* Styles pour la pagination */
+.dataTables_wrapper .dataTables_paginate {
+    font-size: 0.85rem;
+}
+
+.dataTables_wrapper .dataTables_info {
+    font-size: 0.85rem;
+}
+
+/* Styles pour les tooltips */
+.tooltip {
+    font-size: 0.8rem;
+}
+
+/* Styles pour les modals */
+.modal-body {
+    font-size: 0.9rem;
+}
+
+.modal-title {
+    font-size: 1.1rem;
+}
+
+/* Styles pour les alertes */
+.alert {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+}
+
+/* Styles pour les titres de section */
+.card-header h6 {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Styles pour les boutons d'action dans les tableaux */
+.table .btn-group .btn i {
+    font-size: 0.8rem;
+}
+
+/* Styles pour les cellules avec du texte long */
+.table td.text-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Styles pour les en-têtes de colonnes */
+.table thead th {
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Styles pour les cellules vides */
+.table td:empty::before {
+    content: "-";
+    color: #6c757d;
+}
