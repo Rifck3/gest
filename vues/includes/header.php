@@ -35,11 +35,18 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/sidebar.js"></script>
+    <script src="assets/js/sidebar.js" defer></script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    <script>
+    try {
+      if (localStorage.getItem('sidebarState') === 'toggled') {
+        document.documentElement.classList.add('sidebar-toggled-instant');
+      }
+    } catch(e){}
+    </script>
     <?php if(isset($_SESSION['user_id'])): ?>
     <?php require_once 'vues/includes/stats.php'; ?>
     <!-- Page Wrapper -->
@@ -173,8 +180,8 @@
                     <ul class="navbar-nav ml-auto align-items-center">
                         <!-- Sidebar Toggle (Topbar) -->
                         <li class="nav-item">
-                            <button id="sidebarToggle" class="sidebar-toggle nav-link border-0">
-                                <i class="fas fa-bars"></i>
+                            <button id="sidebarToggleTop" type="button" class="btn btn-link rounded-circle mr-3">
+                                <i class="fa fa-bars"></i>
                             </button>
                         </li>
                         <!-- Badge Fournisseurs -->

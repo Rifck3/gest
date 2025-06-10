@@ -27,18 +27,73 @@ body {
 }
 
 #sidebar {
-    width: var(--sidebar-width);
+    width: 250px;
     background: linear-gradient(180deg, var(--sidebar-dark-bg) 10%, #224abe 100%);
     min-height: 100vh;
     position: fixed;
     z-index: 1;
-    transition: all 0.3s;
+    transition: width 0.3s ease;
     overflow-y: auto;
     height: 100vh;
 }
 
 #sidebar.toggled {
-    margin-left: -250px;
+    width: 70px;
+}
+
+#sidebar.toggled .sidebar-brand-text,
+#sidebar.toggled .nav-link span,
+#sidebar.toggled .sidebar-heading,
+#sidebar.toggled .nav-link .badge,
+#sidebar.toggled .nav-link .label,
+#sidebar.toggled .nav-link .assistant-label {
+    display: none !important;
+}
+
+#sidebar.toggled .nav-link {
+    color: transparent !important;
+    position: relative;
+}
+
+#sidebar.toggled .nav-link i,
+#sidebar.toggled .nav-link svg {
+    color: #fff !important;
+    fill: #fff !important;
+    font-size: 1.25rem !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    position: relative;
+    z-index: 1;
+}
+
+#sidebar.toggled .nav-link * {
+    color: transparent !important;
+    fill: transparent !important;
+}
+
+#sidebar.toggled .nav-link i,
+#sidebar.toggled .nav-link svg {
+    color: #fff !important;
+    fill: #fff !important;
+}
+
+#sidebar.toggled .nav-link span,
+#sidebar.toggled .nav-link .assistant-label {
+    display: none !important;
+}
+
+#sidebar.toggled .nav-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#sidebar.toggled .nav-link > *:not(i) {
+    display: none !important;
 }
 
 #sidebar .sidebar-brand {
@@ -90,15 +145,15 @@ body {
 /* Content styles */
 #content-wrapper {
     width: 100%;
-    margin-left: var(--sidebar-width);
+    margin-left: 250px;
     overflow-x: hidden;
-    transition: all 0.3s;
+    transition: margin-left 0.3s ease;
     display: flex;
     flex-direction: column;
 }
 
-#wrapper.toggled #content-wrapper {
-    margin-left: 0;
+#content-wrapper.expanded {
+    margin-left: 70px;
 }
 
 #content {
@@ -331,20 +386,15 @@ footer {
     }
 
     #sidebar {
-        margin-left: -200px;
-        width: 200px;
+        transform: translateX(-100%);
     }
 
     #sidebar.toggled {
-        margin-left: 0;
+        transform: translateX(0);
     }
 
     #content-wrapper {
-        margin-left: 0;
-    }
-
-    #content-wrapper.toggled {
-        margin-left: 200px;
+        margin-left: 0 !important;
     }
 
     .topbar .navbar-search {
@@ -491,21 +541,25 @@ footer {
 }
 
 #sidebarToggle {
-    width: 2.5rem;
-    height: 2.5rem;
-    text-align: center;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
+    background: transparent;
+    border: none;
+    color: #5a5c69;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
 }
 
 #sidebarToggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.8);
+    color: #224abe;
+    background: rgba(34, 74, 190, 0.1);
+}
+
+#sidebarToggle i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+body.sidebar-toggled #sidebarToggle i {
+    transform: rotate(180deg);
 }
 
 .chat-container {
@@ -606,5 +660,65 @@ footer {
 @media (max-width: 900px) {
     .dashboard-card {
         min-height: 140px;
+    }
+}
+
+/* Animation du bouton toggle */
+.sidebar-toggle i {
+    transition: transform 0.3s ease;
+}
+
+#sidebar.toggled .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 1023px) {
+    #sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+    #sidebar.toggled {
+        transform: translateX(0);
+    }
+    #content-wrapper,
+    #content-wrapper.expanded {
+        margin-left: 0 !important;
+    }
+}
+
+.sidebar-toggled-instant #sidebar {
+    width: 70px !important;
+}
+.sidebar-toggled-instant #sidebar .sidebar-brand-text,
+.sidebar-toggled-instant #sidebar .nav-link span,
+.sidebar-toggled-instant #sidebar .sidebar-heading,
+.sidebar-toggled-instant #sidebar .nav-link .badge,
+.sidebar-toggled-instant #sidebar .nav-link .label,
+.sidebar-toggled-instant #sidebar .nav-link .assistant-label {
+    display: none !important;
+}
+.sidebar-toggled-instant #sidebar .nav-link {
+    text-align: center !important;
+    padding: 0.75rem 0 !important;
+}
+.sidebar-toggled-instant #sidebar .nav-link i {
+    margin-right: 0 !important;
+    font-size: 1.2rem !important;
+}
+.sidebar-toggled-instant #content-wrapper {
+    margin-left: 70px !important;
+}
+@media (max-width: 1023px) {
+    .sidebar-toggled-instant #sidebar {
+        transform: translateX(-100%) !important;
+        width: 250px !important;
+    }
+    .sidebar-toggled-instant #content-wrapper {
+        margin-left: 0 !important;
     }
 }

@@ -1,105 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.querySelector('.sidebar');
-    const content = document.querySelector('.content');
+    // Sélection des éléments
+    const sidebarToggle = document.getElementById('sidebarToggleTop');
+    const sidebar = document.getElementById('sidebar');
+    const contentWrapper = document.getElementById('content-wrapper');
+    const html = document.documentElement;
 
-    // Fonction pour gérer le toggle du menu
+    // Vérifier si les éléments existent
+    if (!sidebarToggle || !sidebar || !contentWrapper) {
+        console.error('Éléments manquants pour la barre latérale');
+        return;
+    }
+
+    // Fonction pour basculer la barre latérale
     function toggleSidebar() {
-        sidebar.classList.toggle('collapsed');
-        content.classList.toggle('expanded');
-        
-        // Sauvegarder l'état du menu
-        localStorage.setItem('sidebarState', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
+        sidebar.classList.toggle('toggled');
+        // Seulement sur desktop, on décale le contenu
+        if (window.innerWidth >= 1024) {
+            contentWrapper.classList.toggle('expanded');
+        }
+        // Sauvegarder l'état
+        const isToggled = sidebar.classList.contains('toggled');
+        localStorage.setItem('sidebarState', isToggled ? 'toggled' : 'expanded');
     }
 
-    // Restaurer l'état du menu au chargement
+    // Appliquer l'état au chargement
     const savedState = localStorage.getItem('sidebarState');
-    if (savedState === 'collapsed') {
-        sidebar.classList.add('collapsed');
-        content.classList.add('expanded');
+    if (savedState === 'toggled') {
+        sidebar.classList.add('toggled');
+        if (window.innerWidth >= 1024) {
+            contentWrapper.classList.add('expanded');
+        }
+    } else {
+        sidebar.classList.remove('toggled');
+        contentWrapper.classList.remove('expanded');
     }
 
-    // Écouteur d'événement pour le bouton toggle
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
+    // Synchroniser l'état CSS instantané
+    if (html.classList.contains('sidebar-toggled-instant')) {
+        html.classList.remove('sidebar-toggled-instant');
     }
+
+    // Ajouter l'événement click au bouton
+    sidebarToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleSidebar();
+    });
 
     // Gestion du swipe sur mobile
     let touchStartX = 0;
-    let isSwiping = false;
+    let touchEndX = 0;
 
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        isSwiping = true;
-    }, { passive: true });
-
-    document.addEventListener('touchmove', (e) => {
-        if (!isSwiping) return;
-        
-        const currentX = e.touches[0].clientX;
-        const diff = currentX - touchStartX;
-        
-        if (Math.abs(diff) > 50) { // Augmenté le seuil pour éviter les faux positifs
-            if (diff > 0 && sidebar.classList.contains('collapsed')) {
-                // Swipe droite quand le menu est fermé
-                toggleSidebar();
-            } else if (diff < 0 && !sidebar.classList.contains('collapsed')) {
-                // Swipe gauche quand le menu est ouvert
-                toggleSidebar();
-            }
-            isSwiping = false;
-        }
-    }, { passive: true });
-
-    document.addEventListener('touchend', () => {
-        isSwiping = false;
-    }, { passive: true });
-});
-
-    // Écouteur d'événement pour le bouton toggle
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
-    }
-
-    // Gestion du swipe sur mobile
-    document.addEventListener('touchstart', (e) => {
+    document.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
-    });
+    }, false);
 
-    document.addEventListener('touchend', (e) => {
+    document.addEventListener('touchend', function(e) {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
-    });
+    }, false);
 
     function handleSwipe() {
+        const swipeThreshold = 50;
         const swipeDistance = touchEndX - touchStartX;
-        const threshold = 100; // Distance minimale pour un swipe
 
-        if (Math.abs(swipeDistance) >= threshold) {
-            if (swipeDistance > 0 && sidebar.classList.contains('collapsed')) {
-                // Swipe vers la droite -> ouvrir le menu
-                toggleSidebar();
-            } else if (swipeDistance < 0 && !sidebar.classList.contains('collapsed')) {
-                // Swipe vers la gauche -> fermer le menu
-                toggleSidebar();
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+            if (swipeDistance > 0) {
+                // Swipe droite
+                if (sidebar.classList.contains('toggled')) {
+                    toggleSidebar();
+                }
+            } else {
+                // Swipe gauche
+                if (!sidebar.classList.contains('toggled')) {
+                    toggleSidebar();
+                }
             }
         }
     }
 
-    // Gestion responsive
-    function handleResize() {
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add('collapsed');
-            content.classList.add('expanded');
-        } else {
-            sidebar.classList.remove('collapsed');
-            content.classList.remove('expanded');
+    // Gérer le resize pour retirer le décalage sur mobile
+    window.addEventListener('resize', function() {
+        if (window.innerWidth < 1024) {
+            contentWrapper.classList.remove('expanded');
+        } else if (sidebar.classList.contains('toggled')) {
+            contentWrapper.classList.add('expanded');
         }
-    }
+    });
 
-    // Écouter les changements de taille d'écran
-    window.addEventListener('resize', handleResize);
-
-    // Vérifier la taille d'écran au chargement
-    handleResize();
+    // Debug : log pour vérifier l'exécution sur chaque page
+    console.log('Sidebar JS chargé et prêt.');
 });
